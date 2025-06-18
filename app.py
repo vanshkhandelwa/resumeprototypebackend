@@ -24,7 +24,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configure Google AI
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "AIzaSyCY9tnrZXjEWJMlU39Y6Znd3eMnFQLBbI8")  # Use env var as default
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+if not GOOGLE_API_KEY:
+    raise ValueError("GOOGLE_API_KEY environment variable is not set")
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Initialize Gemini Vision model
