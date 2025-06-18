@@ -2,8 +2,11 @@ services:
   - type: web
     name: resume-analyzer-backend
     env: python
+    pythonVersion: 3.9.18
     buildCommand: |
       apt-get update && apt-get install -y build-essential python3-dev
+      python -m pip install --upgrade pip
+      pip install wheel setuptools
       pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
