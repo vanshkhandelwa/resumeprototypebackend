@@ -4,10 +4,19 @@ services:
     env: python
     pythonVersion: 3.9.18
     buildCommand: |
-      apt-get update && apt-get install -y build-essential python3-dev
+      apt-get update && apt-get install -y \
+        libmupdf-dev \
+        libjpeg-dev \
+        zlib1g-dev \
+        build-essential \
+        python3-dev \
+        swig \
+        pkg-config \
+        libfreetype6-dev \
+        libpng-dev
       python -m pip install --upgrade pip
       pip install wheel setuptools
-      pip install -r requirements.txt
+      CFLAGS="-I/usr/include/freetype2" pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GOOGLE_API_KEY
